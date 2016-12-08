@@ -25,8 +25,20 @@ public class AccessFilter extends ZuulFilter  {
     public boolean shouldFilter() {
         return true;
     }
-
+    
     @Override
+    public Object run() {
+        RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+
+        log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
+
+        Object accessToken = request.getParameter("accessToken");
+        log.info("access token ok");
+        return null;
+    }
+    
+    /*@Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
@@ -42,6 +54,6 @@ public class AccessFilter extends ZuulFilter  {
         }
         log.info("access token ok");
         return null;
-    }
+    }*/
 
 }
